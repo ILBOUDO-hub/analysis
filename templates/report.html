@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapport d'analyse</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        h2 {
+            color: black;
+            background-color: #80808080;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .summary, .interpretation {
+            text-align: left;
+            margin-top: 20px;
+        }
+        input[type="file"] {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Tableau de bord</h2>
+
+        <form action="{{ url_for('home') }}" method="get">
+            <button type="submit">Retour à l'accueil</button>
+        </form>
+
+        <div class="summary">
+            <h2>Résumé des données</h2>
+            {{ summary | safe }}
+        </div>
+        <div class="visualization">
+            <h2>Visualisations</h2>
+            {{ graph_html | safe }}
+        </div>
+        <div class="interpretation">
+            <h2>Interprétation des résultats</h2>
+            {{ interpretations | safe }}
+        </div>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" required>
+            <button type="submit">Analyser un autre fichier</button>
+        </form>
+    </div>
+</body>
+</html>
